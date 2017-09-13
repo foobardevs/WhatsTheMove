@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block body %}
+<br>
+<br>
+
+  <center>
+<script type="text/javascript">
+
+  Parse.initialize("D063W83WpUP2UgH2dwbz8Xukxc17ZXKFbRfWCCsO", "EwPaVNpCQP4RahQTRKlWra9LTnojPJl5rcK3HcS1");
+
+  
+  function signup(){
+    event.preventDefault();
+
+    var username = document.getElementById("username").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var user = new Parse.User();
+      user.set("username", username);
+      user.set("password", password);
+      user.set("email", email);
+
+      user.signUp(null, {
+
+        success: function(user) {
+          location.assign("/Login");
+        },
+        error: function(user, error) {
+          // Show the error message somewhere and let the user try again.
+          alert("Opps!!, there was an error: " + error.code + " " + error.message);
+        }
+
+      });
+  }
+
+</script>
+
+  <div class = "sign-up">
+    <div class = "container">
+
+    <h1 class = "login-text"><strong>SIGN UP</strong></h1>
+
+    <br><br>
+    <center>
+  <form onsubmit="signup()">
+
+<br>
+  <div class="form-group">
+    <label for="username"></label>
+    <input id = "username" type="text" placeholder = "Username" class="form-control" style="width: 300px;" name = "username">
+  </div>
+<br>
+  <div class="form-group">
+    <label for="email"></label>
+    <input id = "email" type="email" placeholder = "E-mail Address" class="form-control" style="width: 300px;" name = "email">
+  </div>
+<br>
+  <div class="form-group">
+    <label for="pwd"></label>
+    <input id="password" type="password" placeholder = "Password" class="form-control" style="width: 300px;" name = "password">
+  </div>
+<br>
+  <div class="form-group">
+    <label for="conpwd"></label>
+    <input id="confirmedpassword" type="password" placeholder = "Confirm Password" class="form-control"  style="width: 300px;" name = "repassword">
+  </div>
+
+  
+  <br>
+  <input type="submit" class="btn btn-default">
+
+</form>
+</center>
+</div>
+</div>
+
+
+
+</center>
+
+
+   
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block body %}
+
+<script>
+
+Parse.initialize("D063W83WpUP2UgH2dwbz8Xukxc17ZXKFbRfWCCsO", "EwPaVNpCQP4RahQTRKlWra9LTnojPJl5rcK3HcS1");
+
+var image = Parse.Object.extend("Post");
+    var query = new Parse.Query(image);
+    query.exists("Image");
+    query.find({
+      success: function(results) {
+        // If the query is successful, store each image URL in an array of image URL's
+        imageURLs = [];
+        for (var i = 0; i < results.length; i++) { 
+          var object = results[i];
+          imageURLs.push(object.get('Image'));
+        }
+        // If the imageURLs array has items in it, set the src of an IMG element to the first URL in the array
+        for(var j = 0; j < imageURLs.length; j++){
+            $('#imgs').append("<img src='" + imageURLs[j].url() + "'/><br>");                 
+        }
+      },
+      error: function(error) {
+     
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
+
+</script>
+
+<br>
+<br>
+<br>
+
+<div id="imgs">
+
+
+</div>
+jhgvkjbkjk
+
+
+
+{% endblock %}

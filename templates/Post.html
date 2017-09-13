@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block body %}
+
+<br>
+<br>
+
+
+<script>
+
+Parse.initialize("D063W83WpUP2UgH2dwbz8Xukxc17ZXKFbRfWCCsO", "EwPaVNpCQP4RahQTRKlWra9LTnojPJl5rcK3HcS1");
+
+function post(){
+	event.preventDefault();
+
+	//here is where all of the stuff for the parties are
+	var event_name = document.getElementById("name").value;
+	var host_name = document.getElementById("host_name").value;
+	var date = document.getElementById("date").value;
+	var location = document.getElementById("location").value;
+	var image = document.getElementById("upload").files[0];
+
+	var fileUploadControl = $("#upload")[0];
+
+	if (fileUploadControl.files.length > 0) {
+
+    	var file = fileUploadControl.files[0];
+    	var name = "photo.png";
+    	var parseFile = new Parse.File(name, file);
+
+
+	    parseFile.save().then(function(parseFile) {
+
+	    	var url = parseFile.url();
+	    		//start with the subclass
+			var Post = Parse.Object.extend("Post");
+			Parse.Object.registerSubclass('Post', Post);
+
+			//create an instance for the subclass
+			var party = new Post();
+
+			party.set("Name", event_name);
+			party.set("HostName", host_name);
+			party.set("Date", date);
+			party.set("Location", location);
+			party.set("Image", parseFile);
+
+			party.save(null, {
+
+				success: function (party){
+
+					alert("your party has been successfully added to the base");
+
+				},
+
+				error: function (party, error){
+
+					alert("hi    "+error.message);
+				}
+			});
+
+	    }, function(error) {
+	
+	    		alert("Error: " + error.code + " " + error.message);
+
+	      });
+  	};
+
+
+	
+
+
+}
+
+</script>
+
+
+
+
+
+
+<div class = "design">
+<center>
+<form onsubmit = "post()">
+
+	<br>
+	<br>
+	<br>
+
+	<div class="form-group">
+    	<label for="name"></label>
+    	<input id = "name" type="text" placeholder = "Name of Event" class="form-control" style="width: 300px;" name = "Name">
+  	</div>
+	<br>
+	<div class="form-group">
+    	<label for="host_name"></label>
+    	<input id = "host_name" type="text" placeholder = "Name of host" class="form-control" style="width: 300px;" name = "host_name">
+  	</div>
+	<br>
+	<div class="form-group">
+    	<label for="date"></label>
+    	<input id = "date" type="text" placeholder = "Date" class="form-control" style="width: 300px;" name = "date">
+  	</div>
+	<br>
+	<div class="form-group">
+    	<label for="location"></label>
+    	<input id = "location" type="text" placeholder = "Location" class="form-control" style="width: 300px;" name = "location">
+  	</div>
+	<br>
+	<br>
+
+
+	<input id="upload" type="file" accept="image/*">
+	<br>
+	<br>
+
+	<input style="width: 300px;" class="btn btn-default" type="submit"></input>
+	
+
+</form>
+
+<div class = "container-fluid tile" style = "position:relative;clear:both;overflow:hidden;">
+
+	<img id="output"/>
+
+	</div>
+</center>
+<br>
+<br>
+</div>
+
+
+
+
+
+
+{% endblock %}
