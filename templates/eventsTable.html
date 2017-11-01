@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function insRow(id) {
+  for(var i = 0; i < 15; i++) {
+    var x = document.getElementById(id);
+    x.innerHTML += "<img src= '../images/guy.jpg'/ length=200px width=200px> <br>";
+  //  var y = x.insertCell(0);
+  //  var z = x.insertCell(1);
+  //  y.innerHTML += "<img src= '../images/guy.jpg'/ length=200px width=200px>";
+//    z.innerHTML += "<img src= '../images/guy.jpg'/ length=200px width=200px>";
+  } //insert buttons here for events, use css to style
+}
+</script>
+</head>
+
+<body>
+<p id = "myImg">
+<table id="myTable" style="border: 1px solid black">
+<tr>
+<td>obj 1</td>
+<td>obj 2</td>
+</tr>
+<tr>
+<td>obj1</td>
+<td>obj2</td>
+</tr>
+<tr>
+<td>obj1</td>
+<td>obj2</td>
+</tr>
+</table>
+
+<p>
+<input type="button" onclick="insRow('myImg')" value="Load more">
+</p>
+</p>
+</body>
+</html>
